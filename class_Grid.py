@@ -1,8 +1,6 @@
-# from typing import List
 from class_Net_coach import Net_coach
 from class_Net import Net
 
-# import torch
 import time
 import matplotlib.pyplot as plt
 import numpy as np
@@ -11,9 +9,6 @@ import seaborn as sns
 
 sns.set()
 
-
-# List_with_tensors = List[torch.Tensor]
-# Tensor_List = List[List_with_tensors]
 
 
 class Grid:
