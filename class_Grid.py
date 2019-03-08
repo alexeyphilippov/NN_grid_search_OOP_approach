@@ -1,8 +1,8 @@
-from typing import List
-from oop.class_Net_coach import Net_coach
-from oop.class_Net import Net
+# from typing import List
+from class_Net_coach import Net_coach
+from class_Net import Net
 
-import torch
+# import torch
 import time
 import matplotlib.pyplot as plt
 import numpy as np
@@ -11,8 +11,9 @@ import seaborn as sns
 
 sns.set()
 
-List_with_tensors = List[torch.Tensor]
-Tensor_List = List[List_with_tensors]
+
+# List_with_tensors = List[torch.Tensor]
+# Tensor_List = List[List_with_tensors]
 
 
 class Grid:
@@ -21,7 +22,7 @@ class Grid:
 
     """
 
-    def __init__(self, X: DataFrame, y: DataFrame):
+    def __init__(self, X: DataFrame, y: DataFrame) -> None:
         self.__X = X
         self.__y = y
 
@@ -38,7 +39,7 @@ class Grid:
         n_values: int
     """
 
-    def grid_1d(self, parameter, lower_bound, upper_bound, n_values) -> None:
+    def grid_1d(self, parameter: str, lower_bound: float, upper_bound: float, n_values: int) -> None:
 
         __scores_arr = []
         __curr_time = time.time()
@@ -81,7 +82,8 @@ class Grid:
     
     """
 
-    def grid_2d(self, lower_bound1, upper_bound1, n_values1, lower_bound2, upper_bound2, n_values2) -> None:
+    def grid_2d(self, lower_bound1: float, upper_bound1: float, n_values1: int, lower_bound2: float,
+                upper_bound2: float, n_values2: int) -> None:
         __scores = []
         __curr_time = time.time()
         __outer_sc_arr = []

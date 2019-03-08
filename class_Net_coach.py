@@ -1,4 +1,4 @@
-from oop.class_Net import Net
+from class_Net import Net
 from sklearn.model_selection import KFold
 from typing import List
 
