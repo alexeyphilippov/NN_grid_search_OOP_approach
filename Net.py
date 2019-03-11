@@ -37,7 +37,5 @@ class Net(nn.Module):
 
     def use_drop_out(self, flag: bool = True) -> None:  # Turn on/off dropout
         self.__flag = flag
-        if self.__flag:
-            pass
-        else:
+        if not self.__flag:
             self.__p = 0

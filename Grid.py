@@ -1,5 +1,5 @@
-from class_Net_coach import Net_coach
-from class_Net import Net
+from Net_coach import Net_coach
+from Net import Net
 
 import time
 import matplotlib.pyplot as plt
@@ -17,8 +17,8 @@ class Grid:
 
     """
 
-    def __init__(self, X: DataFrame, y: DataFrame) -> None:
-        self.__X = X
+    def __init__(self, x: DataFrame, y: DataFrame) -> None:
+        self.__x = x
         self.__y = y
 
     """
@@ -36,38 +36,36 @@ class Grid:
 
     def grid_1d(self, parameter: str, lower_bound: float, upper_bound: float, n_values: int) -> None:
 
-        __scores_arr = []
-        __curr_time = time.time()
-        __scores = []
+        scores = []
         if parameter == 'w1':
             self.w1s = np.linspace(lower_bound, upper_bound, n_values).astype(int).tolist()
             for param in self.w1s:
-                __net = Net([10, param, 8, 1])
-                __coach = Net_coach(X=self.__X, y=self.__y, model=__net)
-                __scores.append(round(__coach.get_error_on_cv(), 2))
+                net = Net([10, param, 8, 1])
+                coach = Net_coach(x=self.__x, y=self.__y, model=net)
+                scores.append(round(coach.get_error_on_cv(), 2))
 
         elif parameter == 'w2':
             self.w2s = np.linspace(lower_bound, upper_bound, n_values).astype(int).tolist()
             for param in self.w2s:
-                __net = Net([10, 3, param, 1])
-                __coach = Net_coach(X=self.__X, y=self.__y, model=__net)
-                __scores.append(round(__coach.get_error_on_cv(), 2))
+                net = Net([10, 3, param, 1])
+                coach = Net_coach(x=self.__x, y=self.__y, model=net)
+                scores.append(round(coach.get_error_on_cv(), 2))
 
         elif parameter == 'p':
             self.ps = np.linspace(lower_bound, upper_bound, n_values)
             for param in self.ps:
-                __net = Net([10, 3, 8, 1], p=param)
-                __coach = Net_coach(X=self.__X, y=self.__y, model=__net)
-                __scores.append(round(__coach.get_error_on_cv(), 2))
+                net = Net([10, 3, 8, 1], p=param)
+                coach = Net_coach(x=self.__x, y=self.__y, model=net)
+                scores.append(round(coach.get_error_on_cv(), 2))
 
         elif parameter == 'lr':
-            __lrs = np.linspace(lower_bound, upper_bound, n_values)
-            for param in __lrs:
-                __net = Net([10, 3, 8, 1])
-                __coach = Net_coach(X=self.__X, y=self.__y, model=__net, lr=param)
-                __scores.append(round(__coach.get_error_on_cv(), 2))
+            lrs = np.linspace(lower_bound, upper_bound, n_values)
+            for param in lrs:
+                net = Net([10, 3, 8, 1])
+                coach = Net_coach(x=self.__x, y=self.__y, model=net, lr=param)
+                scores.append(round(coach.get_error_on_cv(), 2))
 
-        plt.plot(np.linspace(lower_bound, upper_bound, n_values), __scores)
+        plt.plot(np.linspace(lower_bound, upper_bound, n_values), scores)
         plt.show()
 
     """
@@ -79,17 +77,16 @@ class Grid:
 
     def grid_2d(self, lower_bound1: float, upper_bound1: float, n_values1: int, lower_bound2: float,
                 upper_bound2: float, n_values2: int) -> None:
-        __scores = []
-        __curr_time = time.time()
-        __outer_sc_arr = []
+
+        outer_sc_arr = []
 
         for w1 in np.linspace(lower_bound1, upper_bound1, n_values1).astype(int).tolist():
-            __inner_sc_arr = []
+            inner_sc_arr = []
             for w2 in np.linspace(lower_bound2, upper_bound2, n_values2).astype(int).tolist():
-                __net = Net([10, w1, w2, 1])
-                __coach = Net_coach(X=self.__X, y=self.__y, model=__net)
-                __inner_sc_arr.append(round(__coach.get_error_on_cv(), 2))
-            __outer_sc_arr.append(__inner_sc_arr)
+                net = Net([10, w1, w2, 1])
+                coach = Net_coach(x=self.__x, y=self.__y, model=net)
+                inner_sc_arr.append(round(coach.get_error_on_cv(), 2))
+            outer_sc_arr.append(inner_sc_arr)
 
-        sns.heatmap(__outer_sc_arr)
+        sns.heatmap(outer_sc_arr)
         plt.show()
